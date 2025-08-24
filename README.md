@@ -7,16 +7,16 @@ I have decided to create my own game engine. I have almost no experience in anyt
 ## Game Engine features to include:
   - Full 3D Game Design Support
   - An entirely new physics system
-  - Support for creating multiplayer games
+  - ~~Support for creating multiplayer games~~
 
 ## Planning Roadmap
   - #### Bootstrapping
     - Opening a window in the OS
     - Debug Logging
     - File System Access - Reading and Writing
-  - #### Networking
-    - Set up client and server and get communication between them working
-    - Sending text packets back and forth by TCP and UDP
+  - #### ~~Networking~~
+    - ~~Set up client and server and get communication between them working~~
+    - ~~Sending text packets back and forth by TCP and UDP~~
   - #### Graphics API
     - OpenGL, Vulcan, or DirectX
     - Basic things like rendering a triangle
@@ -25,10 +25,10 @@ I have decided to create my own game engine. I have almost no experience in anyt
     - Determine how assets will be imported at a high level
   - #### Handling Gamescreen - UI interaction
   - #### World and Scene Graph
-  - #### Implementing Object State for Client and Server
-    - If an object moves from one point to another, how do all clients see it?
+  - #### ~~Implementing Object State for Client and Server~~
+    - ~~If an object moves from one point to another, how do all clients see it?~~
   - #### Set up a Physics Systems
-  - #### Making Physics system and Networking system interact with each other
+  - #### ~~Making Physics system and Networking system interact with each other~~
   - #### Tools
     - Level Editors
     - Asset Importers
