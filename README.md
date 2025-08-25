@@ -40,4 +40,5 @@ I have decided to create my own game engine. I have almost no experience in anyt
     - [Stack Overflow](https://stackoverflow.com/questions)
     - [Learn Open GL](https://learnopengl.com)
   - #### [Youtube Channel - BennyBox](https://www.youtube.com/@thebennybox/videos)
-  - #### [Youtube Channel - Progrematic](https://www.youtube.com/@Progrematic/playlists)
+  - #### [Youtube Channel - Progrematic](https://www.youtube.com/@Progrematic/videos)
+  - #### [Youtube Channel - Furkan Sarihan](https://www.youtube.com/@fusarihan/videos)
