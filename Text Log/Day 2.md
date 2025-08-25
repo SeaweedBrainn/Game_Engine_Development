@@ -7,3 +7,5 @@ I finally shifted to Visual Studio and used [this youtube video](https://www.you
 
 I also used ChatGPT's help to learn to reduce repetition in including all those dylib files in the tasks.json file. To include the all the dynamic libraries with a shorter syntax use `-L${workspaceFolder}/dependencies/library` and then list each dylib as `-lglfw.3.4` without using either `lib` or `dylib`.
 
+The next step was making a package, but packages only exist in Java and the closest thing to a package is a namespace in C++. I tried creating a new folder and creating a new file with that namespace to run the same code (I refactored the tasks.json) but it did not work. Now, I looked up actual game development with C++ on youtube and found a [video](https://www.youtube.com/watch?v=0xmpEdbEPpc). So I'll evidently have to start from beginning using the video as a base to build up. I will continue with it tomorrow basically restarting form the beginning. Peace out.
+
