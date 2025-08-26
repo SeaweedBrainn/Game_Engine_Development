@@ -1,4 +1,6 @@
 # Day 2
+### August 24, 2025 (Sunday)
+
 I am following [this video by Bennybox](https://youtu.be/yt-0nObJZf8?si=W-0Nr4HTORfoo0-8) to open a window. He is using eclipse IDE with Java but I know C++. He is using lwjgl and slick-utl external libraries for Java to work with OpenGL. I found GLFW and GLAD as alternatives to lwjgl. I found Allegro as an alternative to slick-utl.
 
 I tried installing [GLFW external library](https://www.glfw.org/download) in Clion but wasn't able to do because skill issue. I also tried in eclipse but could not do as well.
