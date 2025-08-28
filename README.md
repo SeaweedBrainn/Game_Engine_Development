@@ -3,7 +3,9 @@ I have decided to create my own game engine. I have almost no experience in anyt
 
 #### Initial Commit: August 23, 2025
 
-
+## Side Quests
+  - Learn basics on Cmake, conan2, and clang++ to be able to setup a project on my own
+    
 ## Game Engine features to include:
   - Full 3D Game Design Support
   - An entirely new physics system
@@ -42,3 +44,4 @@ I have decided to create my own game engine. I have almost no experience in anyt
   - #### [Youtube Channel - BennyBox](https://www.youtube.com/@thebennybox/videos)
   - #### [Youtube Channel - Progrematic](https://www.youtube.com/@Progrematic/videos)
   - #### [Youtube Channel - Furkan Sarihan](https://www.youtube.com/@fusarihan/videos)
+  - #### [Youtube Channel - Low Level Game Dev](https://www.youtube.com/@lowlevelgamedev9330/videos)
