@@ -45,3 +45,4 @@ I have decided to create my own game engine. I have almost no experience in anyt
   - #### [Youtube Channel - Progrematic](https://www.youtube.com/@Progrematic/videos)
   - #### [Youtube Channel - Furkan Sarihan](https://www.youtube.com/@fusarihan/videos)
   - #### [Youtube Channel - Low Level Game Dev](https://www.youtube.com/@lowlevelgamedev9330/videos)
+  - #### [Youtube Channel - PardCode](https://www.youtube.com/@PardCode/videos)
