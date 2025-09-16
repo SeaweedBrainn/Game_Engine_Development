@@ -1,9 +1,12 @@
 # Game_Engine_Development
+### [Link to project repository](https://github.com/SeaweedBrainn/GameEngineProject)
 I have decided to create my own game engine. I have almost no experience in anything like this and it is supposed to take a long time. I will be logging my journey in audio files and in text where necessary along with all the files. My goal is to finish this project in 3 years before my graduation. I will not be using AI if I can help it.
 
 #### Initial Commit: August 23, 2025
 
 ## Side Quests
+
+## Completed Side Quests
   - Learn basics on Cmake, conan2, and clang++ to be able to setup a project on my own
     
 ## Game Engine features to include:
@@ -46,3 +49,4 @@ I have decided to create my own game engine. I have almost no experience in anyt
   - #### [Youtube Channel - Furkan Sarihan](https://www.youtube.com/@fusarihan/videos)
   - #### [Youtube Channel - Low Level Game Dev](https://www.youtube.com/@lowlevelgamedev9330/videos)
   - #### [Youtube Channel - PardCode](https://www.youtube.com/@PardCode/videos)
+  - #### [Youtube Video - Conan Package Manager](https://www.youtube.com/watch?v=U-_RbUqDSTc)
