@@ -76,5 +76,6 @@ I went to `CMakeLists.txt` and added
   Then I got a [sample code](https://learnopengl.com/code_viewer.php?code=getting-started/hello-triangle-exercise1) and ran it to confirm my setup is working as intended
 
 <hr />
+
 > ### Note
 Later on I looked up learnopengl.com and realized I should be using GLAD as a loader instead of GLEW since learnopengl.com uses GLAD. The process for it was a bit complicated and I documented it in [Day12.md](https://github.com/SeaweedBrainn/Game_Engine_Development/blob/d85a2acd418d9d61e0d066723d1e994f6ca46a22/Text%20Log/Day12.md).
