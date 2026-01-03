@@ -36,4 +36,4 @@ class Input{
         static void displayKeys();
 };
 ```
-Then you need to write `std::list<int> keys;` somewhere outside the class and to call the function you need to write `Input::displayKeys()`.
+Then you need to write `std::list<int> Input::keys;` somewhere outside the class and to call the function you need to write `Input::displayKeys()`.
