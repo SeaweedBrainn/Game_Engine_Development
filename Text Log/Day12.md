@@ -3,37 +3,61 @@
 
 [Link to current edition of the game engine repository]()
 
-Today I got the input, vector, matrix, and quaternion classes setup. I continued following [BennyBox's tutorial playlist](https://youtube.com/playlist?list=PLEETnX-uPtBXP_B2yupUKlflXBznWIlL5&si=IXih23VENDWYb3b4) and completed till the #6 video.
+Today I configured using the GLAD loader for openGL instead of GLEW. I also continued following [BennyBox's tutorial playlist](https://youtube.com/playlist?list=PLEETnX-uPtBXP_B2yupUKlflXBznWIlL5&si=IXih23VENDWYb3b4) and completed till the #6 video.
 
 <hr />
 
-> ### Input Class implementation with GLFW
-The input implementation involved setting up receiving the keyboard and mouse inputs from the user. I created functions to return true when a certain key is pressed, keys are recognized using their unique keycodes. Same goes for the mouse buttons. I also created functions that whether a key was pressed just this frame or released this frame. I used doubly linked lists `std::list<int>` to store the keys pressed which is highly unoptimized but fine for now. GLFW has functions `glfwGetKey(glfwWindow* window, int key)` and `glfwGetMouseButton(glfwWindow* window, int mouseButton)` that return `GLFW_PRESS` when a certain key or mouse button is held respectively. The function `glfwGetCursorPos (GLFWwindow *window, double *xpos, double *ypos)` can be used to get the mouse position relative to the top left corner of the window and store said coordinates in `(&xpos, &ypos)`. Check out the [docs](https://www.glfw.org/docs/latest/group__input.html#gadd341da06bc8d418b4dc3a3518af9ad2) for more info on these functions. <br /> <br />
+> ### Configuring GLAD using conan package manager
+I had done the setup for GLFW and other libraries already, see [Day9.md](https://github.com/SeaweedBrainn/Game_Engine_Development/blob/4137a936b74d4ed1f557bebfeedd489a64a8d5f5/Text%20Log/Day9.md) for details on how to do it. Now I was just going through learnopengl.com and realized that they are using GLAD as a loader instead of GLEW which is what ill be using to learn openGL so might as well change it. To my conanfile.py I added the line `self.requires("glad/0.1.36")` under the `requirements(self)` function. I used the terminal and went into the directry where my project is and ran `conan install . -sbuild_type=Debug -of=conan/deb --build=missing`. I got an error that `Module Not Found: jinja2 couldn't be located`, GLAD has a depedency of jinja2 which is a python module. In the console I found that the version of python which the conan was using was located at `/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13`, so just installing jinja2 on my mac using pip install was not working. I finally ran `/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13 -m pip install --break-system-packages jinja2
+` to install it at the correct location. The `--break-system-packages` part was necessary as without it I was getting errors and the module was not being installed.  Again I ran `conan install . -sbuild_type=Debug -of=conan/deb --build=missing` in the project directory and this time it worked. <br /><br />
 
-The implementation of the `getKeyDown(int keyCode)` function involved first getting the status of all 256 keycodes currently and storing it an array every frame. Then in the next frame (next game update loop), only unique keys that were pressed (i.e. those keycodes which were not found in the array generated in the previous update loop) were added to the DownKey list. The opposite logic was used for the `getKeyDown(int keyCode)` function.
+I also had to be careful that in the conanfile.py I put in the 0.1.36 version of GLAD and not the latest 2.0.8. For all GLAD conan recipes check out [this link](https://conan.io/center/recipes/glad). This is because glad1 has the glad.h header file which we need but glad2 doesn't. After that I went into cmakelists.txt and added `find_package(GLAD REQUIRED)`, I also updated this statement, `target_link_libraries(${PROJECT_NAME} glfw GLEW::GLEW glm::glm glu::glu glad::glad)`. Note: If something breaks its always a good idea to delete the conan and build folders, re-run the conan build command, and re-cofigure cmake (see [Day9.md](https://github.com/SeaweedBrainn/Game_Engine_Development/blob/4137a936b74d4ed1f557bebfeedd489a64a8d5f5/Text%20Log/Day9.md) for details). After this now I can include GLAD in my C++ files by the header `<glad/glad.h>`.
 
-<hr />
-
-> ### Vectors, Matrix, Quaternion classes and Operator Overloading
-These classes would be used later for doing math operations in the game engine. I created a vector2f, a vector3f, a matrix4f, and a quaternion class with basic functionalities such as setters, getters, arithmetic, dot products, cross products, rotation etc. Most of the "complicated" functions just had direct formulas which you need theory to understand from. I used [Bennybox's companion playlist](https://youtube.com/playlist?list=PLEETnX-uPtBUG4iRqc6bEBv5uxMXswlEL) to understand Quaternions, although I'd prefer to do my own research on them too. <br /> <br />
-
-It had been a long time since I worked with operator overloading in C++ so it was a nice refresh of memory. iostream operators like `>>` need to be declared as friend functions of the class instead of performing normal member function overloading. the iostream reference also needs to be returned back to perform chain input or output. Here are some operator overloading syntax:
+<details>
+    <summary>Cmakelists.txt</summary>
+    
 ```
-friend std::ostream& operator<<(std::ostream& os, const Vector2f& vector2f);
+cmake_minimum_required(VERSION 3.25.0) 
+project(GameEngine VERSION 0.1.0 LANGUAGES C CXX) 
 
-Vector2f operator+(const Vector2f& other) const;
-```
-<hr />
+find_package(GLFW3 REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(GLM REQUIRED)
+find_package(GLAD REQUIRED)
 
-> ### A note about static member variables and functions
-I probably didn't mention this earlier, but a new thing I found out. Static member variables of a class need to be declared outside of the class once even if they are not initialized. Static member functions cannot be access by using the dot operator and need the scope resolution operator to be accessed instead.
-If this is a class:
+# Add all .cpp files in the src directory and its subdirectories
+file(GLOB_RECURSE CPP_SOURCES src/*.cpp)
+
+# Add all .h files in the src directory and its subdirectories
+file(GLOB_RECURSE HEADER_FILES src/*.h)
+
+add_executable(${PROJECT_NAME} ${CPP_SOURCES} ${HEADER_FILES}) 
+
+target_link_libraries(${PROJECT_NAME} glfw GLEW::GLEW glm::glm glu::glu glad::glad)
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)  
 ```
-class Input{
-    private:
-        static std::list<int> keys;
-    public:
-        static void displayKeys();
-};
+</details>
+<details>
+    <summary>conanfile.py</summary>
+
 ```
-Then you need to write `std::list<int> keys;` somewhere outside the class and to call the function you need to write `Input::displayKeys()`.
+from conan import ConanFile 
+
+class GameEngineProject(ConanFile):
+    generators = ("CMakeToolchain","CMakeDeps")
+    settings = ("os","build_type","arch","compiler")
+
+    def requirements(self):
+        self.requires("glfw/3.4")
+        self.requires("glew/2.2.0")
+        self.requires("glm/1.0.1")
+        self.requires("glad/0.1.36")
+    
+    def build_requirements(self):
+        self.tool_requires("cmake/[>=3.25]")
+
+    def layout(self):
+        self.folders.generators = ""
+```
+</details>
