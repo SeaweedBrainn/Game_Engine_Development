@@ -12,22 +12,22 @@ Then I made a conanfile.py and I learnt that using it better than using conanfil
   <summary> Contents of my conanfile.py </summary>
 
   ```
-    from conan import ConanFile #Library to import
+from conan import ConanFile #Library to import
 
-    class GameEngineProject(ConanFile): #Make the class of the project name inherit from ConanFile
-        generators = ("CMakeToolchain","CMakeDeps") #Generators needed for working with CMake
-        settings = ("os","build_type","arch","compiler") #conan regenerates all files if any of these settings are changed
+class GameEngineProject(ConanFile): #Make the class of the project name inherit from ConanFile
+  generators = ("CMakeToolchain","CMakeDeps") #Generators needed for working with CMake
+  settings = ("os","build_type","arch","compiler") #conan regenerates all files if any of these settings are changed
 
-    def requirements(self): #Check conan recipes to see which requires to use
-        self.requires("glfw/3.4") #glfw library
-        self.requires("glew/2.2.0") #glew library to help glfw
-        self.requires("glm/cci.20230113") #openGL math library
+  def requirements(self): #Check conan recipes to see which requires to use
+    self.requires("glfw/3.4") #glfw library
+    self.requires("glew/2.2.0") #glew library to help glfw
+    self.requires("glm/cci.20230113") #openGL math library
+        
+  def build_requirements(self):
+    self.tool_requires("cmake/[>=3.25]") #Make sure people with above this CMake version can only use this
     
-    def build_requirements(self):
-        self.tool_requires("cmake/[>=3.25]") #Make sure people with above this CMake version can only use this
-
-    def layout(self):
-        self.folders.generators = "" #Optional
+  def layout(self):
+    self.folders.generators = "" #Optional
   ```
 </details>
 
