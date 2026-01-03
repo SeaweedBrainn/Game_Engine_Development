@@ -15,8 +15,8 @@ Then I made a conanfile.py and I learnt that using it better than using conanfil
     from conan import ConanFile #Library to import
 
     class GameEngineProject(ConanFile): #Make the class of the project name inherit from ConanFile
-    generators = ("CMakeToolchain","CMakeDeps") #Generators needed for working with CMake
-    settings = ("os","build_type","arch","compiler") #conan regenerates all files if any of these settings are changed
+        generators = ("CMakeToolchain","CMakeDeps") #Generators needed for working with CMake
+        settings = ("os","build_type","arch","compiler") #conan regenerates all files if any of these settings are changed
 
     def requirements(self): #Check conan recipes to see which requires to use
         self.requires("glfw/3.4") #glfw library
