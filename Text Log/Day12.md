@@ -1,9 +1,9 @@
 # Day 12
 ### Jan 3, 2026
 
-[Link to current edition of the game engine repository]()
+[Link to current edition of the game engine repository](https://github.com/SeaweedBrainn/GameEngineProject/tree/5b5588517237bd800f97014a0c427984b3aa84a1)
 
-Today I configured using the GLAD loader for openGL instead of GLEW. I also continued following [BennyBox's tutorial playlist](https://youtube.com/playlist?list=PLEETnX-uPtBXP_B2yupUKlflXBznWIlL5&si=IXih23VENDWYb3b4) and completed till the #6 video.
+Today I configured using the GLAD loader for openGL instead of GLEW. I also continued following [BennyBox's tutorial playlist](https://youtube.com/playlist?list=PLEETnX-uPtBXP_B2yupUKlflXBznWIlL5&si=IXih23VENDWYb3b4) and completed till the #8 video to try and setup the Mesh class.
 
 <hr />
 
@@ -61,3 +61,31 @@ class GameEngineProject(ConanFile):
         self.folders.generators = ""
 ```
 </details>
+
+> ### Input class logic change
+I changed the logic of the input class to be a bit more optimized than earlier just using static boolean arrays to store the current status of each key. Then every frame we compared the key status this frame and key status last frame to see if the key was newly pressed or released or not. I also moved the `Input::update()` below `game->input()` (which calls the `Input::getKeyDown()` function) in the maincomponent run loop so that the boolean arrays are refreshed only after its new state has been checked. In the `maincomponent::Render()` method, I moved `Window::Render()` below `game->render()` so that game renders the mesh first and then the window shows that.
+
+> ### RenderUtil class
+I created a class for rendering utilities which only has a `RenderUtil::clearScreen()` function for now. The function `glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);` can be used to clear the color and depth buffers by bitwise or. However, to use this function, GLAD has to be initialized when creating the context as its a glfw pointer function. I went into the Window.cpp class and added this after making the context current to initialize GLAD. 
+```
+if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cerr << "Failed to initialize GLAD" << std::endl;
+        std::exit(-1);
+    }
+```
+To use the function I also needed to initialize the graphics (or use fallback defaults). So I created an `RenderUtil::initGraphics()` function and called it in the main function of the main component after creating the window. I called the `RenderUtil::clearScreen()` in the `MainComponent::Render()` function before everything else. It doesn't do anything for now. Here's some info about the InitGraphics function.
+```
+void RenderUtil::initGraphics()
+{
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f); //Clear color is set to black (RGBA)
+
+    glFrontFace(GL_CW); //Define front face as the face drawn clockwise
+    glCullFace(GL_BACK); //Define the back face to be the face to be culled
+    glEnable(GL_CULL_FACE); //Cull the back face as we dont need to render the face which is not towards the camera
+    glEnable(GL_DEPTH_TEST); //Enables using the z or the depth value for vertices not on the same deoth
+
+    //TODO: Depth Clamp for later
+
+    glEnable(GL_FRAMEBUFFER_SRGB); //
+}
+```
