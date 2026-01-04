@@ -61,6 +61,7 @@ class GameEngineProject(ConanFile):
         self.folders.generators = ""
 ```
 </details>
+<hr />
 
 > ### Input class logic change
 I changed the logic of the input class to be a bit more optimized than earlier just using static boolean arrays to store the current status of each key. Then every frame we compared the key status this frame and key status last frame to see if the key was newly pressed or released or not. I also moved the `Input::update()` below `game->input()` (which calls the `Input::getKeyDown()` function) in the maincomponent run loop so that the boolean arrays are refreshed only after its new state has been checked. In the `maincomponent::Render()` method, I moved `Window::Render()` below `game->render()` so that game renders the mesh first and then the window shows that.
@@ -86,6 +87,24 @@ void RenderUtil::initGraphics()
 
     //TODO: Depth Clamp for later
 
-    glEnable(GL_FRAMEBUFFER_SRGB); //
+    glEnable(GL_FRAMEBUFFER_SRGB); //Get free gamma correction
+}
+```
+<hr />
+
+> ### Vertex and Mesh Classes (and Utils)
+Next I created a Vertex class to hold Vertex data, for now it only has a vector3f member, later on, itll have more info. It also has a static SIZE member variable which is the number of floats involved in a vertex (3 for now: x, y, and z). Then I created a Mesh class that's gonna draw the mesh. This class didn't work for me unfortunately since Bennybox was using OpenGL 1.0 and I am using OpenGL 3.0 which have some differences in how they are implement. I shall explain the logic for his method, then ill explain how it works in 3.0. <br /> <br />
+
+The mesh class only has two member variables, `unsigned int vbo` and `int size`. vbo is the handle which stores like the pointer to array buffer data. You generate the buffer using `glGenBuffers(1, &vbo);`. I don't know yet what this means unfortunately. A list of vertices can be obtained in the form of `std::vector<vertex> vertices`, but will have to be converted into a flat array insert it into the buffer data. I created a new class Utils to handle this function, which output a buffer array `std::vector<float> buffer`. the handle vbo has to be bound by ` glBindBuffer(GL_ARRAY_BUFFER, vbo);`, now any buffer operations performed would happen on vbo. Then we do `glBufferData(GL_ARRAY_BUFFER, buffer.size() * sizeof(float), buffer.data(), GL_STATIC_DRAW);` to put the vertex data into the vbo. The second argument is the size of the buffer array in bytes. Finally to draw you once again bind vbo and then run `glDrawArrays(GL_TRIANGLES, 0, size);`. Here `size` is the number of vertices drawn, and 0 is the index of the element from where to start. This size is the same as the size member varaible of the class. However there are a few other functions which need to be called, which i did not really understand yet. My plan is to go through learnopengl.com to learn how to render a mesh using vertices and then change my logic here. From my preliminary research, I need another object called vao and I also need to write a fragment shader to be able to do anything. Heres my draw function which I called in the `Game::render()` method.
+```
+void Mesh::draw(){
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float), 0);
+
+    glDrawArrays(GL_TRIANGLES, 0, size);
+
+    glDisableVertexAttribArray(0);
 }
 ```
