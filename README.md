@@ -39,7 +39,7 @@ I have decided to create my own game engine. I have almost no experience in anyt
     - Asset Importers
     - Any tool to make content for the engine
 
-## Resources
+## Resources on game engines
   - ##### [Youtube - Why and how to write a game engine](https://youtu.be/Gf5mMWHWNYc?si=KxZxFDLFkWY7UTZo)
     - [Game Dev . Net Website](https://www.gamedev.net)
     - [Stack Overflow](https://stackoverflow.com/questions)
@@ -50,3 +50,8 @@ I have decided to create my own game engine. I have almost no experience in anyt
   - #### [Youtube Channel - Low Level Game Dev](https://www.youtube.com/@lowlevelgamedev9330/videos)
   - #### [Youtube Channel - PardCode](https://www.youtube.com/@PardCode/videos)
   - #### [Youtube Video - Conan Package Manager](https://www.youtube.com/watch?v=U-_RbUqDSTc)
+
+## Understanding Graphics Concepts
+  - #### [Rotation Quaternions, and How to Use Them by D. Rose - May, 2015](https://danceswithcode.net/engineeringnotes/quaternions/quaternions.html)
+  - #### [Model View Project Matrices](https://jsantell.com/model-view-projection/)
+  - #### [Book: Real-Time Rendering, Fourth Edition, by Tomas Akenine-Möller et al., ISBN-13: 978-1138627000](https://www.realtimerendering.com)
